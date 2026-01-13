@@ -34,14 +34,22 @@
   --color-orange-400-rgb: 230, 129, 97;
 
   /* Background color tokens (Light Mode) */
-  --color-bg-1: rgba(59, 130, 246, 0.08); /* Light blue */
-  --color-bg-2: rgba(245, 158, 11, 0.08); /* Light yellow */
-  --color-bg-3: rgba(34, 197, 94, 0.08); /* Light green */
-  --color-bg-4: rgba(239, 68, 68, 0.08); /* Light red */
-  --color-bg-5: rgba(147, 51, 234, 0.08); /* Light purple */
-  --color-bg-6: rgba(249, 115, 22, 0.08); /* Light orange */
-  --color-bg-7: rgba(236, 72, 153, 0.08); /* Light pink */
-  --color-bg-8: rgba(6, 182, 212, 0.08); /* Light cyan */
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  /* Light blue */
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  /* Light yellow */
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  /* Light green */
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  /* Light red */
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  /* Light purple */
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  /* Light orange */
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  /* Light pink */
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+  /* Light cyan */
 
   /* Semantic Color Tokens (Light Mode) */
   --color-background: var(--color-cream-50);
@@ -156,14 +164,22 @@
     --color-gray-200-rgb: 245, 245, 245;
 
     /* Background color tokens (Dark Mode) */
-    --color-bg-1: rgba(29, 78, 216, 0.15); /* Dark blue */
-    --color-bg-2: rgba(180, 83, 9, 0.15); /* Dark yellow */
-    --color-bg-3: rgba(21, 128, 61, 0.15); /* Dark green */
-    --color-bg-4: rgba(185, 28, 28, 0.15); /* Dark red */
-    --color-bg-5: rgba(107, 33, 168, 0.15); /* Dark purple */
-    --color-bg-6: rgba(194, 65, 12, 0.15); /* Dark orange */
-    --color-bg-7: rgba(190, 24, 93, 0.15); /* Dark pink */
-    --color-bg-8: rgba(8, 145, 178, 0.15); /* Dark cyan */
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    /* Dark blue */
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    /* Dark yellow */
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    /* Dark green */
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    /* Dark red */
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    /* Dark purple */
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    /* Dark orange */
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    /* Dark pink */
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+    /* Dark cyan */
 
     /* Semantic Color Tokens (Dark Mode) */
     --color-background: var(--color-charcoal-700);
@@ -216,14 +232,22 @@
   --color-gray-200-rgb: 245, 245, 245;
 
   /* Colorful background palette - Dark Mode */
-  --color-bg-1: rgba(29, 78, 216, 0.15); /* Dark blue */
-  --color-bg-2: rgba(180, 83, 9, 0.15); /* Dark yellow */
-  --color-bg-3: rgba(21, 128, 61, 0.15); /* Dark green */
-  --color-bg-4: rgba(185, 28, 28, 0.15); /* Dark red */
-  --color-bg-5: rgba(107, 33, 168, 0.15); /* Dark purple */
-  --color-bg-6: rgba(194, 65, 12, 0.15); /* Dark orange */
-  --color-bg-7: rgba(190, 24, 93, 0.15); /* Dark pink */
-  --color-bg-8: rgba(8, 145, 178, 0.15); /* Dark cyan */
+  --color-bg-1: rgba(29, 78, 216, 0.15);
+  /* Dark blue */
+  --color-bg-2: rgba(180, 83, 9, 0.15);
+  /* Dark yellow */
+  --color-bg-3: rgba(21, 128, 61, 0.15);
+  /* Dark green */
+  --color-bg-4: rgba(185, 28, 28, 0.15);
+  /* Dark red */
+  --color-bg-5: rgba(107, 33, 168, 0.15);
+  /* Dark purple */
+  --color-bg-6: rgba(194, 65, 12, 0.15);
+  /* Dark orange */
+  --color-bg-7: rgba(190, 24, 93, 0.15);
+  /* Dark pink */
+  --color-bg-8: rgba(8, 145, 178, 0.15);
+  /* Dark cyan */
 
   /* Semantic Color Tokens (Dark Mode) */
   --color-background: var(--color-charcoal-700);
@@ -338,18 +362,23 @@ h6 {
 h1 {
   font-size: var(--font-size-4xl);
 }
+
 h2 {
   font-size: var(--font-size-3xl);
 }
+
 h3 {
   font-size: var(--font-size-2xl);
 }
+
 h4 {
   font-size: var(--font-size-xl);
 }
+
 h5 {
   font-size: var(--font-size-lg);
 }
+
 h6 {
   font-size: var(--font-size-md);
 }
@@ -367,6 +396,7 @@ a {
 a:hover {
   color: var(--color-primary-hover);
 }
+
 /* light/dark mode button style */
 .theme-toggle {
   position: fixed;
@@ -393,6 +423,7 @@ a:hover {
   outline: var(--focus-outline);
   box-shadow: var(--focus-ring);
 }
+
 code,
 pre {
   font-family: var(--font-family-mono);
@@ -596,43 +627,31 @@ select.form-control {
 }
 
 .status--success {
-  background-color: rgba(
-    var(--color-success-rgb, 33, 128, 141),
-    var(--status-bg-opacity)
-  );
+  background-color: rgba(var(--color-success-rgb, 33, 128, 141),
+      var(--status-bg-opacity));
   color: var(--color-success);
-  border: 1px solid
-    rgba(var(--color-success-rgb, 33, 128, 141), var(--status-border-opacity));
+  border: 1px solid rgba(var(--color-success-rgb, 33, 128, 141), var(--status-border-opacity));
 }
 
 .status--error {
-  background-color: rgba(
-    var(--color-error-rgb, 192, 21, 47),
-    var(--status-bg-opacity)
-  );
+  background-color: rgba(var(--color-error-rgb, 192, 21, 47),
+      var(--status-bg-opacity));
   color: var(--color-error);
-  border: 1px solid
-    rgba(var(--color-error-rgb, 192, 21, 47), var(--status-border-opacity));
+  border: 1px solid rgba(var(--color-error-rgb, 192, 21, 47), var(--status-border-opacity));
 }
 
 .status--warning {
-  background-color: rgba(
-    var(--color-warning-rgb, 168, 75, 47),
-    var(--status-bg-opacity)
-  );
+  background-color: rgba(var(--color-warning-rgb, 168, 75, 47),
+      var(--status-bg-opacity));
   color: var(--color-warning);
-  border: 1px solid
-    rgba(var(--color-warning-rgb, 168, 75, 47), var(--status-border-opacity));
+  border: 1px solid rgba(var(--color-warning-rgb, 168, 75, 47), var(--status-border-opacity));
 }
 
 .status--info {
-  background-color: rgba(
-    var(--color-info-rgb, 98, 108, 113),
-    var(--status-bg-opacity)
-  );
+  background-color: rgba(var(--color-info-rgb, 98, 108, 113),
+      var(--status-bg-opacity));
   color: var(--color-info);
-  border: 1px solid
-    rgba(var(--color-info-rgb, 98, 108, 113), var(--status-border-opacity));
+  border: 1px solid rgba(var(--color-info-rgb, 98, 108, 113), var(--status-border-opacity));
 }
 
 /* Container layout */
@@ -649,16 +668,19 @@ select.form-control {
     max-width: var(--container-sm);
   }
 }
+
 @media (min-width: 768px) {
   .container {
     max-width: var(--container-md);
   }
 }
+
 @media (min-width: 1024px) {
   .container {
     max-width: var(--container-lg);
   }
 }
+
 @media (min-width: 1280px) {
   .container {
     max-width: var(--container-xl);
@@ -669,24 +691,31 @@ select.form-control {
 .flex {
   display: flex;
 }
+
 .flex-col {
   flex-direction: column;
 }
+
 .items-center {
   align-items: center;
 }
+
 .justify-center {
   justify-content: center;
 }
+
 .justify-between {
   justify-content: space-between;
 }
+
 .gap-4 {
   gap: var(--space-4);
 }
+
 .gap-8 {
   gap: var(--space-8);
 }
+
 .gap-16 {
   gap: var(--space-16);
 }
@@ -694,16 +723,20 @@ select.form-control {
 .m-0 {
   margin: 0;
 }
+
 .mt-8 {
   margin-top: var(--space-8);
 }
+
 .mb-8 {
   margin-bottom: var(--space-8);
 }
+
 .mx-8 {
   margin-left: var(--space-8);
   margin-right: var(--space-8);
 }
+
 .my-8 {
   margin-top: var(--space-8);
   margin-bottom: var(--space-8);
@@ -712,18 +745,22 @@ select.form-control {
 .p-0 {
   padding: 0;
 }
+
 .py-8 {
   padding-top: var(--space-8);
   padding-bottom: var(--space-8);
 }
+
 .px-8 {
   padding-left: var(--space-8);
   padding-right: var(--space-8);
 }
+
 .py-16 {
   padding-top: var(--space-16);
   padding-bottom: var(--space-16);
 }
+
 .px-16 {
   padding-left: var(--space-16);
   padding-right: var(--space-16);
@@ -732,6 +769,7 @@ select.form-control {
 .block {
   display: block;
 }
+
 .hidden {
   display: none;
 }
@@ -797,8 +835,7 @@ a:focus-visible {
 
 @font-face {
   font-family: 'FKGroteskNeue';
-  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2')
-    format('woff2');
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
 }
 
 /* END PERPLEXITY DESIGN SYSTEM */
@@ -819,11 +856,9 @@ body {
 }
 
 .dark-theme {
-  background: linear-gradient(
-    135deg,
-    var(--color-background) 0%,
-    var(--color-surface) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--color-background) 0%,
+      var(--color-surface) 100%);
   min-height: 100vh;
 }
 
@@ -1513,6 +1548,7 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -1835,6 +1871,7 @@ body {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1846,6 +1883,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1857,6 +1895,7 @@ body {
     opacity: 0;
     transform: translateX(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -1867,17 +1906,20 @@ body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
 
 @keyframes blink {
+
   0%,
   49%,
   100% {
     opacity: 1;
   }
+
   50%,
   99% {
     opacity: 0.5;
@@ -1885,10 +1927,12 @@ body {
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
@@ -2160,7 +2204,8 @@ body {
 
 /* Text jo screen pe dikh raha hai (Monkeytype style) */
 #textDisplay {
-  font-size: 1.4rem; /* chahe to change kar lena */
+  font-size: 1.4rem;
+  /* chahe to change kar lena */
   line-height: 1.5;
   letter-spacing: 0.02em;
   user-select: none;
@@ -2170,7 +2215,8 @@ body {
 
 /* Sahi typed characters fade out ho jayein */
 #textDisplay .correct {
-  color: #6b7280; /* halka grey */
+  color: #6b7280;
+  /* halka grey */
 }
 
 /* Galat characters red highlight */
@@ -2195,7 +2241,8 @@ body {
   bottom: -2px;
   height: 2px;
   border-radius: 999px;
-  background: #38bdf8; /* accent color / cursor jaisa */
+  background: #38bdf8;
+  /* accent color / cursor jaisa */
 }
 
 .toast {
@@ -2207,7 +2254,7 @@ body {
   padding: 14px 20px;
   border-radius: 8px;
   font-size: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   z-index: 9999;
   animation: slideIn 0.3s ease;
 }
@@ -2221,21 +2268,25 @@ body {
     transform: translateY(20px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
   }
 }
+
 @keyframes popupScale {
   from {
     transform: scale(0.9);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
   }
 }
+
 .header {
   display: flex;
   flex-direction: column;
@@ -2263,6 +2314,7 @@ body {
   color: #000;
   cursor: default;
 }
+
 .password-input {
   position: relative;
   display: flex;
@@ -2294,59 +2346,60 @@ body {
 .stat-card:hover .stat-value {
   transform: scale(1.15);
 }
+
 /* ============================================
    SCROLL TO TOP BUTTON (Global Styles)
    ============================================ */
 
 #scrollToTopBtn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: var(--color-primary);
-    color: var(--color-btn-primary-text);
-    border: none;
-    cursor: pointer;
-    font-size: 24px;
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 #scrollToTopBtn:hover {
-    background-color: var(--color-primary-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-primary-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 #scrollToTopBtn:active {
-    transform: translateY(-1px);
+  transform: translateY(-1px);
 }
 
 /* Dark mode adjustments for the button */
 @media (prefers-color-scheme: dark) {
-    #scrollToTopBtn {
-        background-color: var(--color-primary);
-        color: var(--color-btn-primary-text);
-    }
-    
-    #scrollToTopBtn:hover {
-        background-color: var(--color-primary-hover);
-    }
+  #scrollToTopBtn {
+    background-color: var(--color-primary);
+    color: var(--color-btn-primary-text);
+  }
+
+  #scrollToTopBtn:hover {
+    background-color: var(--color-primary-hover);
+  }
 }
 
 [data-color-scheme='dark'] #scrollToTopBtn {
-    background-color: var(--color-primary);
-    color: var(--color-btn-primary-text);
+  background-color: var(--color-primary);
+  color: var(--color-btn-primary-text);
 }
 
 [data-color-scheme='dark'] #scrollToTopBtn:hover {
-    background-color: var(--color-primary-hover);
+  background-color: var(--color-primary-hover);
 }
 
 /* ============================================
@@ -2387,12 +2440,10 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.3) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 100%);
   animation: shimmer 2s infinite;
 }
 
@@ -2400,6 +2451,7 @@ body {
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(100%);
   }
@@ -2467,3 +2519,569 @@ body {
     font-size: var(--font-size-base);
   }
 }
+
+/* ==================================================================================
+   ==================================================================================
+   ===                                                                            ===
+   ===                           HEATMAP COMPONENT STYLES                         ===
+   ===                                                                            ===
+   ==================================================================================
+   ==================================================================================
+   
+   Description:
+   This section defines the visual styling for the keystroke latency heatmap visualization.
+   The heatmap is a critical component for user feedback, displaying typing performance
+   mapped onto a virtual keyboard layout.
+   
+   Design System:
+   - Colors: Uses semantic colors for performance tiers (Fast, Average, Slow).
+   - Variables: All colors and spacing are derived from root variables or locally scoped.
+   - Responsiveness: Implements a fluid scale approach for key sizes to accommodate
+     everything from mobile devices to ultra-wide desktop monitors.
+   
+   Component Structure:
+   1. Heatmap Container (Wrapper)
+   2. Title & Legend
+   3. Keyboard Layout (Flex/Grid)
+   4. Individual Keys (Interactive elements)
+   5. Tooltips (Data display)
+*/
+
+/* ----------------------------------------------------------------------------------
+   1. HEATMAP CONTAINER & LAYOUT
+   ---------------------------------------------------------------------------------- */
+
+.heatmap-container {
+  /* Positioning & Spacing */
+  margin-top: 32px;
+  padding: 32px;
+
+  /* Visual Appearance */
+  background: var(--color-surface, #1f2937);
+  /* Fallback color provided */
+  border-radius: 16px;
+  border: 1px solid var(--color-border, #374151);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  /* Layout Behavior */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* Animation */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.heatmap-container:hover {
+  /* Subtle interaction feedback */
+  border-color: var(--color-primary, #3b82f6);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* ----------------------------------------------------------------------------------
+   2. TYPOGRAPHY & LEGEND
+   ---------------------------------------------------------------------------------- */
+
+.heatmap-title {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--color-text, #f3f4f6);
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  background: linear-gradient(to right, var(--color-primary, #3b82f6), #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.heatmap-legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding: 12px 24px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 9999px;
+  /* Pill shape */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary, #9ca3af);
+  user-select: none;
+}
+
+.legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  position: relative;
+}
+
+/* Specific Performance Color Tokens */
+.legend-fast {
+  background-color: #4ade80;
+  /* Tailwind Green 400 */
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+}
+
+.legend-avg {
+  background-color: #facc15;
+  /* Tailwind Yellow 400 */
+  box-shadow: 0 0 8px rgba(250, 204, 21, 0.4);
+}
+
+.legend-slow {
+  background-color: #f87171;
+  /* Tailwind Red 400 */
+  box-shadow: 0 0 8px rgba(248, 113, 113, 0.4);
+}
+
+/* ----------------------------------------------------------------------------------
+   3. KEYBOARD COMPONENT
+   ---------------------------------------------------------------------------------- */
+
+.keyboard {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background-color: #2d3748;
+  /* Slate 800 */
+  border-radius: 12px;
+  box-shadow:
+    inset 0 2px 4px 0 rgba(0, 0, 0, 0.2),
+    0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+/* Decorative element mimicking keyboard chassis */
+.keyboard::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 20px;
+  right: 20px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 0 0 12px 12px;
+  filter: blur(4px);
+  z-index: -1;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  /* Spacing between keys */
+}
+
+/* ----------------------------------------------------------------------------------
+   4. INDIVIDUAL KEYS
+   ---------------------------------------------------------------------------------- */
+
+.key {
+  /* Dimensions & Box Model */
+  width: 44px;
+  height: 44px;
+  position: relative;
+
+  /* Flex Centering */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Typography */
+  font-family: 'Roboto Mono', monospace;
+  /* Monospaced for tech feel */
+  font-weight: 600;
+  font-size: 15px;
+
+  /* Appearance */
+  background-color: #cbd5e0;
+  /* Default unpressed state */
+  color: #1a202c;
+  border-radius: 6px;
+
+  /* 3D Effect / Keycap Styling */
+  box-shadow:
+    0 3px 0 0 rgba(0, 0, 0, 0.2),
+    /* Bottom lip */
+    0 4px 4px 0 rgba(0, 0, 0, 0.1);
+  /* Drop shadow */
+
+  /* Interaction */
+  cursor: help;
+  /* Indicates tooltip availability */
+  user-select: none;
+  transition: transform 0.1s ease, filter 0.2s ease, box-shadow 0.1s ease;
+}
+
+.key:hover {
+  transform: translateY(2px);
+  /* Press down effect */
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2);
+  /* Reduced lip shadow */
+  filter: brightness(110%);
+  z-index: 10;
+  /* Bring to front */
+}
+
+/* Performance State Modifiers */
+.key.key-fast {
+  background-color: #4ade80;
+  color: #064e3b;
+  /* Dark Green Text */
+  border-bottom-color: #22c55e;
+}
+
+.key.key-avg {
+  background-color: #facc15;
+  color: #713f12;
+  /* Dark Yellow/Brown Text */
+  border-bottom-color: #eab308;
+}
+
+.key.key-slow {
+  background-color: #f87171;
+  color: #7f1d1d;
+  /* Dark Red Text */
+  border-bottom-color: #ef4444;
+}
+
+.key.key-unused {
+  background-color: #e2e8f0;
+  color: #a0aec0;
+  opacity: 0.6;
+  box-shadow: none;
+  cursor: default;
+}
+
+/* ----------------------------------------------------------------------------------
+   5. TOOLTIPS
+   ---------------------------------------------------------------------------------- */
+
+.key-tooltip {
+  /* Positioning */
+  position: absolute;
+  bottom: 125%;
+  /* Clean gap from key */
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+
+  /* Size & Shape */
+  min-width: 120px;
+  padding: 8px 12px;
+  border-radius: 8px;
+
+  /* Appearance */
+  background-color: rgba(17, 24, 39, 0.95);
+  /* Gray 900, high opacity */
+  color: #ffffff;
+  font-size: 11px;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+
+  /* Details */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+
+  /* Animation State */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 20;
+}
+
+.key-tooltip::after {
+  /* Arrow indicator */
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(17, 24, 39, 0.95) transparent transparent transparent;
+}
+
+.key:hover .key-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+
+/* ==================================================================================
+   ===                           FULL SCREEN VIEW MODE                            ===
+   ================================================================================= */
+
+.results-split-view {
+  /* Reset layout context */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+
+  /* Layout Model */
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  /* Aligned to top as per user request */
+
+  /* Dimensions */
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 60px 20px;
+  box-sizing: border-box;
+
+  /* Background */
+  background-color: var(--color-background, #111827);
+  overflow-y: auto;
+  /* Allow scrolling if content overflows vertically */
+}
+
+/* Visibility Control */
+.results-split-view .results-card,
+.results-split-view .history-section {
+  display: none !important;
+}
+
+/* Scaled Heatmap Container */
+.results-split-view .heatmap-container {
+  width: 100%;
+  max-width: 1600px;
+  /* Constrain max width for ultra-wide monitors */
+  height: auto;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  margin-top: 0;
+  padding: 0;
+
+  /* Enhance the title in full screen */
+  transform-origin: top center;
+}
+
+.results-split-view .heatmap-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  /* Responsive fluid typography */
+  margin-bottom: 2rem;
+  letter-spacing: -0.05em;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.results-split-view .heatmap-legend {
+  transform: scale(1.25);
+  /* Increase visibility */
+  background: rgba(30, 41, 59, 0.8);
+  /* Darker backdrop */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 4rem;
+}
+
+.results-split-view .keyboard {
+  /* Glassmorphism Effect */
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  gap: 16px;
+}
+
+/* ==================================================================================
+   ===                                MEDIA QUERIES                               ===
+   ================================================================================= */
+
+/* --- Base sizing for keys in full screen mode --- */
+.results-split-view .key {
+  width: 80px;
+  height: 80px;
+  font-size: 28px;
+  border-radius: 12px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+.results-split-view .key:hover {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* --- Large Desktop / TV (min-width: 1920px) --- */
+@media screen and (min-width: 1920px) {
+  .results-split-view .heatmap-container {
+    max-width: 1800px;
+  }
+
+  .results-split-view .key {
+    width: 100px;
+    height: 100px;
+    font-size: 32px;
+  }
+}
+
+/* --- Standard Desktop / Laptop (max-width: 1440px) --- */
+@media screen and (max-width: 1440px) {
+  .results-split-view .key {
+    width: 65px;
+    height: 65px;
+    font-size: 22px;
+  }
+
+  .results-split-view .keyboard {
+    padding: 30px;
+  }
+}
+
+/* --- Tablet Landscape / Small Laptops (max-width: 1024px) --- */
+@media screen and (max-width: 1024px) {
+  .results-split-view .key {
+    width: 55px;
+    height: 55px;
+    font-size: 18px;
+    border-radius: 8px;
+  }
+
+  .heatmap-title {
+    font-size: 2.5rem;
+  }
+}
+
+/* --- Tablet Portrait (max-width: 768px) --- */
+@media screen and (max-width: 768px) {
+  .results-split-view {
+    padding: 40px 16px;
+  }
+
+  .results-split-view .key {
+    width: 42px;
+    height: 48px;
+    /* Taller aspect ratio for mobile touch targets */
+    font-size: 16px;
+  }
+
+  .results-split-view .keyboard {
+    padding: 20px;
+    gap: 8px;
+  }
+
+  .results-split-view .heatmap-legend {
+    transform: scale(1);
+    width: 100%;
+    justify-content: space-around;
+  }
+}
+
+/* --- Mobile Large (max-width: 480px) --- */
+@media screen and (max-width: 480px) {
+  .results-split-view .key {
+    width: 34px;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+
+  .heatmap-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Stacking the keyboard rows tighter */
+  .results-split-view .keyboard-row {
+    gap: 4px;
+  }
+}
+
+/* --- Mobile Small (max-width: 350px) --- */
+@media screen and (max-width: 350px) {
+  .results-split-view .key {
+    width: 28px;
+    height: 34px;
+    font-size: 12px;
+  }
+}
+
+
+/* ==================================================================================
+   ===                            JOIN BUTTON COMPONENT                           ===
+   ================================================================================= */
+
+#resScreenJoinBtn {
+  /* Layout & Positioning */
+  display: block;
+  margin: 32px auto 0 auto !important;
+  width: fit-content;
+  min-width: unset;
+  /* Remove minimum width constraint */
+
+  /* Typography */
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  text-align: center;
+
+  /* Visuals */
+  padding: 12px 28px;
+  background: linear-gradient(135deg, var(--color-primary, #3b82f6) 0%, var(--color-primary-dark, #2563eb) 100%);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  /* Pill shape */
+
+  /* Shadow & Depth */
+  box-shadow:
+    0 4px 6px -1px rgba(59, 130, 246, 0.3),
+    0 2px 4px -1px rgba(59, 130, 246, 0.15);
+
+  /* Animation */
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+}
+
+#resScreenJoinBtn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 10px 15px -3px rgba(59, 130, 246, 0.4),
+    0 4px 6px -2px rgba(59, 130, 246, 0.2);
+  filter: brightness(110%);
+}
+
+#resScreenJoinBtn:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+#resScreenJoinBtn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+/* End of Heatmap Styles */

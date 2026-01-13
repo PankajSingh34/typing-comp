@@ -11,6 +11,8 @@ let totalErrors = 0;
 let backspaceCount = 0;
 let typedChars = [];
 let errorIndices = new Set();
+let keyStats = {};
+let lastKeystrokeTime = 0;
 
 // ================= RESULT HISTORY HELPERS =================
 function saveResultToHistory(result) {
@@ -184,12 +186,31 @@ typingInput.addEventListener('keydown', (e) => {
   const expectedChar = typingText[nextIndex] || '';
   const typedChar = e.key;
 
+  // HEATMAP TRACKING
+  const now = Date.now();
+  if (lastKeystrokeTime > 0) {
+    const latency = now - lastKeystrokeTime;
+    const charUpper = typedChar.toUpperCase();
+    if (!keyStats[charUpper]) {
+      keyStats[charUpper] = { count: 0, errors: 0, totalLatency: 0 };
+    }
+    keyStats[charUpper].count++;
+    keyStats[charUpper].totalLatency += latency;
+  }
+  lastKeystrokeTime = now;
+
   typedChars.push(typedChar);
   typingInput.value = typedChars.join('');
 
   if (typedChar !== expectedChar) {
     totalErrors++;
     errorIndices.add(nextIndex);
+
+    // HEATMAP ERROR TRACKING
+    const charUpper = typedChar.toUpperCase();
+    if (keyStats[charUpper]) {
+      keyStats[charUpper].errors++;
+    }
   }
 
   updateTypingStats();
@@ -235,6 +256,7 @@ function updateTypingStats() {
     totalChars,
     errors: totalErrors,
     backspaces: backspaceCount,
+    keyStats: keyStats
   });
 }
 
@@ -386,7 +408,10 @@ socket.on('roundStarted', (data) => {
   typedChars = [];
   totalErrors = 0;
   backspaceCount = 0;
+  backspaceCount = 0;
   errorIndices.clear();
+  keyStats = {};
+  lastKeystrokeTime = 0;
 
   lobbyScreen.classList.add('hidden');
   resultsScreen.classList.add('hidden');
@@ -432,10 +457,69 @@ socket.on('roundEnded', (data) => {
     });
 
     renderResultHistory();
+
+    // RENDER HEATMAP
+    if (personalResult.keyStats) {
+      renderHeatmap(personalResult.keyStats);
+    }
+
+    // Hide EVERYTHING else (Results Card & History) as per user request
+    const resultsCard = document.querySelector('.results-card');
+    if (resultsCard) resultsCard.classList.add('hidden');
+
+    const historySection = document.querySelector('.history-section');
+    if (historySection) historySection.classList.add('hidden');
+
+    // Add 'Join New Competition' button directly to Heatmap Container
+    const heatmapContainer = document.getElementById('heatmapContainer');
+    if (heatmapContainer && !document.getElementById('resScreenJoinBtn')) {
+      const joinBtn = document.createElement('button');
+      joinBtn.id = 'resScreenJoinBtn';
+      joinBtn.className = 'btn-primary';
+      joinBtn.textContent = 'Join New Competition';
+      joinBtn.style.marginTop = '30px';
+      // Inline styles removed to rely on CSS
+      joinBtn.onclick = () => window.location.href = '/participant';
+
+      heatmapContainer.appendChild(joinBtn);
+    }
+
+    // Center the heatmap on screen
+    resultsScreen.classList.add('results-split-view');
+    // Remove inline styles that might conflict or were temporary
+    resultsScreen.style.display = '';
+    resultsScreen.style.justifyContent = '';
+    resultsScreen.style.alignItems = '';
+    resultsScreen.style.minHeight = '';
   }
 });
 
 socket.on('finalResults', () => {
+  // If we are currently viewing results (heatmap), stay there but update UI
+  if (!resultsScreen.classList.contains('hidden')) {
+    const title = resultsScreen.querySelector('h2');
+    if (title) title.textContent = "Competition Complete! 🎉";
+
+    // Hide "Waiting for next round..." text
+    const nextRoundText = document.getElementById('nextRoundText');
+    if (nextRoundText) nextRoundText.style.display = 'none';
+
+    // Add 'Join New Competition' button if not present
+    if (!document.getElementById('resScreenJoinBtn')) {
+      const joinBtn = document.createElement('button');
+      joinBtn.id = 'resScreenJoinBtn';
+      joinBtn.className = 'btn-primary';
+      joinBtn.textContent = 'Join New Competition';
+      joinBtn.style.marginTop = '20px';
+      joinBtn.onclick = () => window.location.href = '/participant';
+
+      const card = resultsScreen.querySelector('.results-card');
+      if (card) card.appendChild(joinBtn);
+    }
+    return;
+  }
+
+  // Default behavior
   joinScreen.classList.add('hidden');
   lobbyScreen.classList.add('hidden');
   testScreen.classList.add('hidden');
@@ -458,7 +542,7 @@ document
   .getElementById("clear-history-btn")
   ?.addEventListener("click", clearResultHistory);
 
-  // ====== ROLE SWITCH: PARTICIPANT → ORGANIZER ======
+// ====== ROLE SWITCH: PARTICIPANT → ORGANIZER ======
 document.addEventListener("DOMContentLoaded", () => {
   const organizerBtn = document.getElementById("organizerSwitchBtn");
 
@@ -473,3 +557,73 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 renderResultHistory();
+
+// ================= HEATMAP RENDERING =================
+function renderHeatmap(keyStats) {
+  const resultsContainer = document.getElementById('resultsScreen');
+  let heatmapContainer = document.getElementById('heatmapContainer');
+
+  // Create container if not exists
+  if (!heatmapContainer) {
+    heatmapContainer = document.createElement('div');
+    heatmapContainer.id = 'heatmapContainer';
+    heatmapContainer.className = 'heatmap-container';
+    resultsContainer.appendChild(heatmapContainer);
+  }
+
+  // Calculate stats
+  const keys = Object.keys(keyStats);
+  if (keys.length === 0) {
+    heatmapContainer.innerHTML = '<p>No typing data available for heatmap</p>';
+    return;
+  }
+
+  let latencies = keys.map(k => keyStats[k].totalLatency / keyStats[k].count);
+  latencies = latencies.filter(l => !isNaN(l) && l > 0);
+
+  const avgLatency = latencies.reduce((a, b) => a + b, 0) / latencies.length || 0;
+
+  // Keyboard Layout
+  const rows = [
+    ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='],
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\''],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/']
+  ];
+
+  let html = `
+    <div class="heatmap-title">Typing Heatmap (Avg Latency)</div>
+    <div class="heatmap-legend">
+      <div class="legend-item"><div class="legend-color legend-fast"></div> Fast (< ${Math.round(avgLatency * 0.8)}ms)</div>
+      <div class="legend-item"><div class="legend-color legend-avg"></div> Average</div>
+      <div class="legend-item"><div class="legend-color legend-slow"></div> Slow (> ${Math.round(avgLatency * 1.2)}ms)</div>
+    </div>
+    <div class="keyboard">
+  `;
+
+  rows.forEach(row => {
+    html += '<div class="keyboard-row">';
+    row.forEach(char => {
+      const stats = keyStats[char] || { count: 0, totalLatency: 0, errors: 0 };
+      const latency = stats.count > 0 ? Math.round(stats.totalLatency / stats.count) : 0;
+
+      let colorClass = 'key-unused';
+      if (stats.count > 0) {
+        if (latency < avgLatency * 0.8) colorClass = 'key-fast';
+        else if (latency > avgLatency * 1.2) colorClass = 'key-slow';
+        else colorClass = 'key-avg';
+      }
+
+      html += `
+        <div class="key ${colorClass}">
+          ${char}
+          ${stats.count > 0 ? `<div class="key-tooltip">${latency}ms (${stats.errors} err)</div>` : ''}
+        </div>
+      `;
+    });
+    html += '</div>';
+  });
+
+  html += '</div>';
+  heatmapContainer.innerHTML = html;
+}

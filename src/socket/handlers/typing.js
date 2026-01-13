@@ -2,8 +2,8 @@ const { updateAndBroadcastLeaderboard } = require('../utils/leaderboard');
 const logger = require('../../config/logger');
 
 async function handleProgress(socket, io, data, activeCompetitions) {
-  const { competitionId, correctChars, totalChars, errors = 0, backspaces = 0 } = data;
-  
+  const { competitionId, correctChars, totalChars, errors = 0, backspaces = 0, keyStats = {} } = data;
+
   try {
     const compData = activeCompetitions.get(competitionId);
     if (!compData || !compData.roundInProgress) return;
@@ -34,6 +34,7 @@ async function handleProgress(socket, io, data, activeCompetitions) {
       accuracy,
       errors,
       backspaces,
+      keyStats,
       testStartTime: startTime,
       elapsedSeconds
     };

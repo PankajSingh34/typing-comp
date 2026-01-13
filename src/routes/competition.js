@@ -6,6 +6,7 @@ const generateCode = require('../utils/codeGenerator');
 const auth = require('../middleware/auth');
 const roleMiddleware = require("../middleware/roleMiddleware");
 const AppError = require('../utils/appError');
+const logger = require('../config/logger');
 const catchAsync = require('../utils/catchAsync');
 const router = express.Router();
 
@@ -36,8 +37,8 @@ const validateCompetitionCreation = [
 
 const validateCompetitionCode = [
   param('code')
-    .isLength({ min: 6, max: 6 })
-    .withMessage('Competition code must be exactly 6 characters')
+    .isLength({ min: 5, max: 5 })
+    .withMessage('Competition code must be exactly 5 characters')
     .matches(/^[A-Z0-9]+$/)
     .withMessage('Competition code must contain only uppercase letters and numbers')
 ];
@@ -67,7 +68,9 @@ router.post('/create', auth, validateCompetitionCreation, handleValidationErrors
     }
   }
 
+  logger.info(`Generaring competition code for organizer: ${req.organizer.id}`);
   const code = generateCode();
+  logger.info(`Competition code generated: ${code}`);
 
   const competition = new Competition({
     name: name.trim(),
@@ -101,7 +104,7 @@ router.post('/create', auth, validateCompetitionCreation, handleValidationErrors
   });
 
   await competition.save();
-  logger.info(`✓ Competition created: ${code}`); // Using logger instead of console.log if available, but staying consistent with file
+  logger.info(`✓ Competition created successfully with code: ${code}`);
   res.json({ success: true, code, competitionId: competition._id });
 }));
 
