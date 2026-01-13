@@ -1,32 +1,39 @@
 const mongoose = require('mongoose');
 
-const ParticipantSchema = new mongoose.Schema({
+const participantSchema = new mongoose.Schema({
   competitionId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Competition',
-    required: true,
-    index: true,
+    required: true
   },
-  name: { type: String, required: true },
-  socketId: { type: String },
-  joinedAt: { type: Date, default: Date.now },
-  totalWpm: { type: Number, default: 0 },
-  totalAccuracy: { type: Number, default: 0 },
-  roundsCompleted: { type: Number, default: 0 },
-  finalRank: { type: Number },
-  roundScores: [
-    {
-      roundNumber: { type: Number },
-      wpm: { type: Number },
-      accuracy: { type: Number },
-      rank: { type: Number },
-      errors: { type: Number, default: 0 },
-      backspaces: { type: Number, default: 0 },
-    },
-  ],
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  socketId: {
+    type: String,
+    required: true
+  },
+  joinedAt: {
+    type: Date,
+    default: Date.now
+  },
+  progress: {
+    type: Number,
+    default: 0
+  },
+  wpm: {
+    type: Number,
+    default: 0
+  },
+  accuracy: {
+    type: Number,
+    default: 100
+  }
 });
 
-// Index to quickly find a participant by name in a specific competition (prevent duplicates)
-ParticipantSchema.index({ competitionId: 1, name: 1 }, { unique: true });
+// Compound unique index to prevent duplicate participants per competition
+participantSchema.index({ competitionId: 1, name: 1 }, { unique: true });
 
-module.exports = mongoose.model('Participant', ParticipantSchema);
+module.exports = mongoose.model('Participant', participantSchema);

@@ -1,91 +1,45 @@
 const mongoose = require('mongoose');
 
-const CompetitionSchema = new mongoose.Schema({
-  name: { type: String, required: true, trim: true },
-  code: { type: String, required: true, unique: true, uppercase: true },
-  organizer: { type: String, default: 'Admin' },
-  organizerId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Organizer',
-    default: null,
+const competitionSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  code: {
+    type: String,
+    required: true,
+    unique: true,
+    uppercase: true
+  },
+  rounds: [{
+    roundNumber: {
+      type: Number,
+      required: true
+    },
+    text: {
+      type: String,
+      required: true
+    },
+    duration: {
+      type: Number,
+      required: true
+    }
+  }],
+  organizer: {
+    type: String,
+    required: true
   },
   status: {
     type: String,
-    enum: ['pending', 'ongoing', 'completed'],
-    default: 'pending',
+    enum: ['waiting', 'active', 'completed'],
+    default: 'waiting'
   },
-
-  rounds: [
-    {
-      roundNumber: { type: Number, required: true },
-      text: { type: String, required: true },
-      duration: { type: Number, required: true },
-      status: {
-        type: String,
-        enum: ['pending', 'in-progress', 'completed'],
-        default: 'pending',
-      },
-      startedAt: { type: Date, default: null },
-      endedAt: { type: Date, default: null },
-      totalDuration: { type: Number, default: 0 },
-      participantsCompleted: { type: Number, default: 0 },
-      highestWpm: { type: Number, default: 0 },
-      lowestWpm: { type: Number, default: 0 },
-      averageWpm: { type: Number, default: 0 },
-      averageAccuracy: { type: Number, default: 0 },
-      results: [
-        {
-          participantName: { type: String, required: true },
-          participantId: { type: String },
-          wpm: { type: Number, default: 0 },
-          accuracy: { type: Number, default: 0 },
-          correctChars: { type: Number, default: 0 },
-          totalChars: { type: Number, default: 0 },
-          incorrectChars: { type: Number, default: 0 },
-          errors: { type: Number, default: 0 }, // NEW
-          backspaces: { type: Number, default: 0 }, // NEW
-          rank: { type: Number },
-          typingTime: { type: Number, default: 0 },
-          createdAt: { type: Date, default: Date.now },
-          updatedAt: { type: Date, default: Date.now },
-        },
-      ],
-      createdAt: { type: Date, default: Date.now },
-    },
-  ],
-
-
-
-  currentRound: { type: Number, default: -1 },
-  totalRounds: { type: Number, default: 0 },
-  roundsCompleted: { type: Number, default: 0 },
-
-  finalRankings: [
-    {
-      rank: { type: Number },
-      participantName: { type: String },
-      averageWpm: { type: Number },
-      averageAccuracy: { type: Number },
-      totalRoundsCompleted: { type: Number },
-      highestWpm: { type: Number },
-      lowestWpm: { type: Number },
-    },
-  ],
-
-  createdAt: { type: Date, default: Date.now },
-  startedAt: { type: Date },
-  completedAt: { type: Date },
-  description: { type: String, default: '' },
-  location: { type: String, default: '' },
-  difficulty: {
-    type: String,
-    enum: ['easy', 'medium', 'hard'],
-    default: 'medium',
-  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+  // NOTE: No participants array - refactored to separate Participant collection
 });
 
-CompetitionSchema.index({ code: 1 });
-CompetitionSchema.index({ createdAt: -1 });
-CompetitionSchema.index({ status: 1 });
-
-module.exports = mongoose.model('Competition', CompetitionSchema);
+module.exports = mongoose.model('Competition', competitionSchema);

@@ -6,124 +6,97 @@ const mongoose = require('mongoose');
 
 
 async function handleJoin(socket, io, data, activeCompetitions) {
-  const { code, participantName } = data;
-
-  // ✅ NEW: Check MongoDB connection FIRST
-  if (mongoose.connection.readyState !== 1) {
-    logger.error('MongoDB not connected. Rejecting join request.', {
-      code,
-      participantName
-    });
-
-    socket.emit('joinError', {
-      message: 'Server error: Database unavailable. Please try again later.'
-    });
-    return;
-  }
-
   try {
-    const competition = await Competition.findOne({ code }).lean();
+    const { code, participantName } = data;
+    
+    // Validate input
+    if (!code || !participantName) {
+      socket.emit('error', { message: 'Code and participant name are required' });
+      return;
+    }
 
+    // Find competition by code
+    const competition = await Competition.findOne({ code: code.toUpperCase() });
     if (!competition) {
-      logger.warn(`Competition code not found: ${code}`);
-      socket.emit('joinError', {
-        message: 'Invalid competition code. Please check and try again.'
-      });
+      socket.emit('error', { message: 'Competition not found' });
       return;
     }
 
+    // Check if competition is still accepting participants
     if (competition.status === 'completed') {
-      socket.emit('joinError', {
-        message: 'This competition has already ended.'
-      });
+      socket.emit('error', { message: 'Competition has ended' });
       return;
     }
 
-    if (!activeCompetitions.has(competition._id.toString())) {
-      activeCompetitions.set(competition._id.toString(), {
-        competitionId: competition._id.toString(),
-        code,
-        currentRound: -1,
-        roundInProgress: false,
-        participants: new Map(),
-        competitionDoc: competition,
-      });
-      logger.debug('New active competition created', {
-        code,
+    try {
+      // Create participant document (will fail if duplicate due to unique index)
+      const participant = await Participant.create({
         competitionId: competition._id,
+        name: participantName.trim(),
+        socketId: socket.id
       });
-    }
 
-    const compData = activeCompetitions.get(competition._id.toString());
+      // Add to active competitions in memory for real-time updates
+      const competitionId = competition._id.toString();
+      if (!activeCompetitions.has(competitionId)) {
+        activeCompetitions.set(competitionId, {
+          competition,
+          participants: new Map()
+        });
+      }
 
-    // Check if already joined
-    const existingParticipant = Array.from(compData.participants.values())
-      .find(p => p.name === participantName);
-
-    if (existingParticipant) {
-      socket.emit('joinError', {
-        message: 'This name is already taken in the competition.'
+      const compData = activeCompetitions.get(competitionId);
+      compData.participants.set(socket.id, {
+        name: participantName.trim(),
+        progress: 0,
+        wpm: 0,
+        accuracy: 100,
+        joinedAt: new Date()
       });
-      return;
+
+      // Join socket room for real-time updates
+      socket.join(competitionId);
+      
+      // Set socket properties for cleanup on disconnect
+      socket.competitionId = competitionId;
+      socket.participantName = participantName.trim();
+      socket.isOrganizer = false;
+
+      // Get current participant count
+      const participantCount = await Participant.countDocuments({ 
+        competitionId: competition._id 
+      });
+
+      // Emit success to the participant
+      socket.emit('joinSuccess', {
+        competition: competition.name,
+        competitionId: competitionId,
+        participantCount,
+        rounds: competition.rounds
+      });
+
+      // Notify all participants in the competition
+      io.to(competitionId).emit('participantJoined', {
+        name: participantName.trim(),
+        count: participantCount
+      });
+
+      console.log(`Participant ${participantName} joined competition ${competition.name}`);
+
+    } catch (dbError) {
+      if (dbError.code === 11000) {
+        // MongoDB duplicate key error
+        socket.emit('error', { message: 'Participant name already taken in this competition' });
+      } else {
+        throw dbError;
+      }
     }
-
-    const participant = {
-      socketId: socket.id,
-      name: participantName,
-      joinedAt: Date.now(),
-      scores: [],
-      currentRoundData: {},
-      roundScores: [],
-    };
-
-    compData.participants.set(socket.id, participant);
-
-    // Create Participant in DB
-    await Participant.create({
-      competitionId: competition._id,
-      name: participantName,
-      socketId: socket.id,
-      joinedAt: new Date(),
-      roundScores: [],
-    });
-
-    socket.join(`competition_${competition._id}`);
-    socket.competitionId = competition._id.toString();
-    socket.participantName = participantName;
-    socket.isOrganizer = false;
-
-    // Notify all
-    io.to(`competition_${competition._id}`).emit('participantJoined', {
-      name: participantName,
-      totalParticipants: compData.participants.size,
-    });
-
-    socket.emit('joinSuccess', {
-      competitionId: competition._id,
-      name: competition.name,
-      roundCount: competition.rounds.length,
-    });
-
-    logger.info(`✓ Participant joined: ${participantName}`, {
-      code,
-      socketId: socket.id,
-      totalParticipants: compData.participants.size,
-    });
 
   } catch (error) {
-    logger.error(`Join error: ${error.message}`, {
-      code,
-      participantName,
-      stack: error.stack,
-    });
-
-    // ✅ ALWAYS respond
-    socket.emit('joinError', {
-      message: 'Server error occurred. Please try again later.'
-    });
+    console.error('Join error:', error);
+    socket.emit('error', { message: 'Failed to join competition' });
   }
 }
-
 
 async function handleOrganizerJoin(socket, io, data) {
   try {
