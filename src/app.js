@@ -114,6 +114,10 @@ app.get('/exportrankings', (req, res) => {
   res.sendFile(path.join(__dirname, './public/exportrankings.html'));
 });
 
+app.get('/practice', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/practice.html'));
+});
+
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./middleware/errorController');
 

@@ -419,6 +419,10 @@ a:hover {
   box-shadow: var(--shadow-md);
 }
 
+.theme-toggle {
+  will-change: transform;
+}
+
 .theme-toggle:focus-visible {
   outline: var(--focus-outline);
   box-shadow: var(--focus-ring);
@@ -1474,6 +1478,7 @@ body {
   align-items: center;
   min-height: 80vh;
   animation: fadeIn 0.5s ease-out;
+  will-change: opacity;
 }
 
 .join-card,
@@ -2427,10 +2432,13 @@ body {
 .progress-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--color-primary), var(--color-success));
-  width: 0%;
-  transition: width 0.3s ease-out;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
   border-radius: inherit;
   position: relative;
+  will-change: transform;
 }
 
 .progress-fill::after {

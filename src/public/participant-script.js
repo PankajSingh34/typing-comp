@@ -1,5 +1,8 @@
 const socket = io();
 
+// Import text manager for multi-language support
+// Note: In browser environment, we'll load this via script tag or inline
+
 let competitionId = null;
 let participantName = null;
 let currentRound = -1;
@@ -7,12 +10,19 @@ let isTestInProgress = false;
 let testStartTime = 0;
 let typingText = '';
 let currentRoundDuration = 0;
+let currentLanguage = 'en'; // Default language
 let totalErrors = 0;
 let backspaceCount = 0;
 let typedChars = [];
 let errorIndices = new Set();
 let keyStats = {};
 let lastKeystrokeTime = 0;
+
+// Audio variables
+let audioContext = null;
+let soundBuffers = {};
+let isMuted = localStorage.getItem('typingSoundsMuted') === 'true';
+let audioInitialized = false;
 
 // ================= RESULT HISTORY HELPERS =================
 function saveResultToHistory(result) {
@@ -211,6 +221,27 @@ typingInput.addEventListener('keydown', (e) => {
     if (keyStats[charUpper]) {
       keyStats[charUpper].errors++;
     }
+
+    // Play incorrect sound
+    playSound('incorrect');
+  } else {
+    // Play correct sound
+    playSound('correct');
+
+    // Check for word completion
+    const currentInput = typedChars.join('');
+    if (expectedChar === ' ' || nextIndex === typingText.length - 1) {
+      // Word completed - check if the word was typed correctly
+      const lastSpaceIndex = currentInput.lastIndexOf(' ', nextIndex - 1);
+      const wordStart = lastSpaceIndex + 1;
+      const wordEnd = nextIndex + 1;
+      const typedWord = currentInput.substring(wordStart, wordEnd);
+      const expectedWord = typingText.substring(wordStart, wordEnd);
+
+      if (typedWord === expectedWord) {
+        playSound('word-complete');
+      }
+    }
   }
 
   updateTypingStats();
@@ -269,6 +300,31 @@ function calculateCorrectChars(input, reference) {
   return correct;
 }
 
+// Language styling configuration
+const languageStyles = {
+  ar: { direction: 'rtl', fontFamily: 'Arial, sans-serif' },
+  he: { direction: 'rtl', fontFamily: 'Arial, sans-serif' },
+  fa: { direction: 'rtl', fontFamily: 'Arial, sans-serif' },
+  ur: { direction: 'rtl', fontFamily: 'Arial, sans-serif' }
+};
+
+// Apply language-specific styling
+function applyLanguageStyling(language) {
+  const styles = languageStyles[language] || { direction: 'ltr', fontFamily: 'Arial, sans-serif' };
+
+  // Apply direction to text display
+  textDisplay.style.direction = styles.direction;
+  textDisplay.style.fontFamily = styles.fontFamily;
+
+  // Apply direction to typing input
+  typingInput.style.direction = styles.direction;
+  typingInput.style.fontFamily = styles.fontFamily;
+
+  // Add RTL class for additional styling if needed
+  const isRTL = styles.direction === 'rtl';
+  document.body.classList.toggle('rtl-layout', isRTL);
+}
+
 function updateTextDisplay(inputText) {
   let html = '';
   for (let i = 0; i < typingText.length; i++) {
@@ -303,6 +359,94 @@ function startTimer(duration) {
       typingInput.disabled = true;
     }
   }, 1000);
+}
+
+// ============= AUDIO FUNCTIONS =============
+
+// Initialize Web Audio API
+function initAudio() {
+  if (audioInitialized) return;
+
+  try {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    audioInitialized = true;
+    preloadSounds();
+  } catch (e) {
+    console.warn('Web Audio API not supported');
+  }
+}
+
+// Preload audio files
+function preloadSounds() {
+  const soundFiles = ['correct.mp3', 'incorrect.mp3', 'word-complete.mp3', 'round-complete.mp3'];
+
+  soundFiles.forEach(soundFile => {
+    fetch(`sounds/${soundFile}`)
+      .then(response => response.arrayBuffer())
+      .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+      .then(audioBuffer => {
+        soundBuffers[soundFile.replace('.mp3', '')] = audioBuffer;
+      })
+      .catch(error => {
+        console.warn(`Failed to load sound: ${soundFile}`, error);
+      });
+  });
+}
+
+// Play sound effect
+function playSound(soundName) {
+  if (isMuted || !audioContext || !soundBuffers[soundName]) return;
+
+  try {
+    const source = audioContext.createBufferSource();
+    source.buffer = soundBuffers[soundName];
+    source.connect(audioContext.destination);
+    source.start(0);
+  } catch (e) {
+    console.warn('Error playing sound:', e);
+  }
+}
+
+// Toggle mute/unmute
+function toggleMute() {
+  isMuted = !isMuted;
+  localStorage.setItem('typingSoundsMuted', isMuted.toString());
+
+  // Update mute button if it exists
+  const muteBtn = document.getElementById('muteToggleBtn');
+  if (muteBtn) {
+    muteBtn.textContent = isMuted ? '🔇' : '🔊';
+    muteBtn.setAttribute('aria-label', isMuted ? 'Unmute typing sounds' : 'Mute typing sounds');
+  }
+}
+
+// Create mute toggle button
+function createMuteToggle() {
+  const muteBtn = document.createElement('button');
+  muteBtn.id = 'muteToggleBtn';
+  muteBtn.className = 'mute-toggle-btn';
+  muteBtn.textContent = isMuted ? '🔇' : '🔊';
+  muteBtn.setAttribute('aria-label', isMuted ? 'Unmute typing sounds' : 'Mute typing sounds');
+  muteBtn.onclick = toggleMute;
+
+  // Position it in the top right corner
+  muteBtn.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--color-surface);
+    border: 2px solid var(--color-border);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+  `;
+
+  document.body.appendChild(muteBtn);
 }
 
 // Error display
@@ -435,6 +579,9 @@ socket.on('roundEnded', (data) => {
   isTestInProgress = false;
   typingInput.disabled = true;
 
+  // Play round complete sound
+  playSound('round-complete');
+
   testScreen.classList.add('hidden');
   resultsScreen.classList.remove('hidden');
 
@@ -554,6 +701,10 @@ document.addEventListener("DOMContentLoaded", () => {
   organizerBtn.addEventListener("click", () => {
     window.location.href = "organizer.html";
   });
+
+  // Initialize audio and create mute toggle
+  initAudio();
+  createMuteToggle();
 });
 
 renderResultHistory();
